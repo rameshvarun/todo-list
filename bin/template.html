@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Todo Server</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9">
+          {% for item_type, item_list in items_by_type %}
+          <h1>{{ item_type }}</h1>
+          <hr>
+          <div class="list-group">
+            {% for item in item_list %}
+              <li class="list-group-item">{{item.content}}
+                <!-- TODO: Put assignments in template {% if item.assignee %}<a>Assigned to {{item.assignee}}</a>{% endif %} -->
+                <!-- TODO: Show expandable file snippet <br>{{item.file}}:{{item.line}} -->
+              </li>
+            {% endfor %}
+          </div>
+          {% endfor %}
+        </div>
+        <div class="col-md-3">
+          <h1>Assignees</h1>
+          <hr>
+          <div class="list-group">
+            {% for assignee, item_list in items_by_assignee %}
+              <li class="list-group-item">
+                <span class="badge pull-right">{{item_list.length}}</span>
+                {{assignee}}
+              </li>
+            {% endfor %}
+          </div>
+
+          <!--<h1>Files</h1>
+          <div class="list-group">
+            {% for file, item_list in items_by_file %}
+              {% if item_list.length %}
+                <li class="list-group-item">
+                  <span class="badge pull-right">{{item_list.length}}</span>
+                  {{file}}
+                </li>
+              {% endif %}
+            {% endfor %}
+          </div>-->
+
+        </div>
+      <div/>
+    </div><!-- /.container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+  </body>
+</html>

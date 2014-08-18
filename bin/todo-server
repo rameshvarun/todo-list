@@ -1,0 +1,111 @@
+#!/usr/bin/env node
+
+var http = require('http');
+var swig = require('swig');
+var path = require('path');
+var gaze = require('gaze');
+var walk = require('fs-walk');
+var fs = require('fs');
+var _ = require('underscore')
+
+var template = swig.compileFile(path.join(__dirname, 'template.html'));
+
+var server = http.createServer(function (request, response) {
+  response.writeHead(200, {"Content-Type": "text/html"});
+
+  // Sort items by type, instead of by file
+  items_by_type = {}
+
+  // Sort items by assignee
+  items_by_assignee = {}
+
+  for(mark in marks) {
+    items_by_type[mark] = []
+    for(file in items_by_file) {
+      _.each(items_by_file[file][mark], function(item) {
+        items_by_type[mark].push(item)
+
+        if(item.assignee)
+          if( items_by_assignee[item.assignee] )
+            items_by_assignee[item.assignee].push(item)
+          else
+            items_by_assignee[item.assignee] = [item]
+      })
+    }
+  }
+
+
+
+  response.end(template({
+    items_by_type : items_by_type,
+    items_by_assignee : items_by_assignee,
+    items_by_file : items_by_file
+  }));
+});
+
+server.listen(8000);
+
+
+
+marks = {
+  "FIXMEs" : /FIXME(\(.*\))?:(.*)/,
+  "TODOs" : /TODO(\(.*\))?:(.*)/,
+  "NOTEs" : /NOTE(\(.*\))?:(.*)/
+}
+
+// Store items by file, so when a file changes, only one list has to be updated
+items_by_file = {}
+
+function scan(file_path) {
+  // TODO: Ignore files listed in the .gitignore
+
+  result = {}
+  for(marktype in marks) {
+    result[marktype] = []
+  }
+
+  try {
+    data = fs.readFileSync(file_path, { encoding : 'utf8' } );
+    data.split(/\r*\n/).map(function(line, index) {
+      for(marktype in marks) {
+        match = marks[marktype].exec(line)
+        if(match) {
+          // Extract assigneee
+          var assignee = (match[1]) ? match[1].substring(1, match[1].length - 1).toLowerCase()  : null;
+
+          result[marktype].push({
+            content : match[0],
+            line : index,
+            file : file_path,
+            assignee: assignee
+          })
+        }
+      }
+    })
+  }
+  catch(err) {
+    console.log(err)
+  }
+
+  return result;
+}
+
+walk.walkSync(process.cwd(), function(base, filename, stat) {
+  if( !stat.isDirectory() ) {
+    items_by_file[path.join(base, filename)] = scan(path.join(base, filename))
+  }
+})
+
+gaze('**/*', function(error, watcher) {
+  this.on('deleted', function(path) {
+    delete items_by_file[path];
+  });
+
+  this.on('added', function(path) {
+    items_by_file[path] = scan(path);
+  });
+
+  this.on('changed', function(path) {
+    items_by_file[path] = scan(path);
+  });
+})

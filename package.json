@@ -1,0 +1,20 @@
+{
+    "name" : "todo",
+    "description" : "todo",
+    "author" : {
+      "name" : "Varun Ramesh"
+    },
+    "dependencies" : {
+      "gaze" : "0.6.4",
+      "swig" : "",
+      "fs-walk" : "",
+      "underscore" : ""
+    },
+    "main": "index.js",
+    "engines": {
+      "node": ">= 0.8.0"
+    },
+    "bin" : {
+      "todo-server" : "./bin/todo-server"
+    }
+}
