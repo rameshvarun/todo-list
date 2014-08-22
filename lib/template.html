@@ -25,7 +25,7 @@
           <hr>
           <div class="list-group">
             {% for item in item_list %}
-              <li data-assignee="{{item.assignee}}" class="list-group-item">{{item.content}}
+              <li data-file="{{ rel_path(item.file) }}" data-assignee="{{item.assignee}}" class="list-group-item">{{item.content}}
                 <!-- TODO(rameshvarun): Put assignments in template {% if item.assignee %}<a>Assigned to {{item.assignee}}</a>{% endif %} -->
                 <!-- TODO(rameshvarun): Show expandable file snippet <br>{{item.file}}:{{item.line}} -->
               </li>
@@ -38,7 +38,7 @@
           <hr>
           <div class="list-group">
             {% for assignee, item_list in items_by_assignee %}
-              <li data-person="{{item.assignee}}" class="list-group-item">
+              <li data-assignee="{{item.assignee}}" class="list-group-item">
                 <span class="badge pull-right">{{item_list.length}}</span>
                 {{assignee}}
               </li>
@@ -47,16 +47,16 @@
 
           <h1>Files</h1>
           <hr>
-          <!--<div class="list-group">
+          <div class="list-group">
             {% for file, item_list in items_by_file %}
               {% if item_list.length %}
-                <li class="list-group-item">
+                <li data-file="{{ rel_path(file) }}" class="list-group-item">
                   <span class="badge pull-right">{{item_list.length}}</span>
                   {{ rel_path(file) }}
                 </li>
               {% endif %}
             {% endfor %}
-          </div>-->
+          </div>
 
         </div>
       <div/>
