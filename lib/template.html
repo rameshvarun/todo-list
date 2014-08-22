@@ -13,6 +13,20 @@
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+    <!-- Font Awesome CSS -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+    <!-- Syntax Highlighting Style -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/styles/vs.min.css" rel="stylesheet">
+
+    <style>
+    .hljs {  background: none; }
+    .list-group-item.active, .list-group-item.active:hover {
+      background-color: #65A5DA;
+      border-color: #65A5DA;
+    }
+    </style>
   </head>
 
   <body>
@@ -25,10 +39,22 @@
           <hr>
           <div class="list-group">
             {% for item in item_list %}
-              <li data-file="{{ rel_path(item.file) }}" data-assignee="{{item.assignee}}" class="list-group-item">{{item.content}}
-                <!-- TODO(rameshvarun): Put assignments in template {% if item.assignee %}<a>Assigned to {{item.assignee}}</a>{% endif %} -->
-                <!-- TODO(rameshvarun): Show expandable file snippet <br>{{item.file}}:{{item.line}} -->
+              <li data-snippet="{{item.file}}:{{item.line}}"
+              data-file="{{ rel_path(item.file) }}"
+              data-assignee="{{item.assignee}}"
+              class="list-group-item snippet-expand">
+                <table style="width:100%;">
+                  <tr><td>
+                    {{item.content}}
+                  </td></tr>
+
+                  <tr>
+                    <td>{% if item.assignee %}Assigned to <a class="assignee-select" data-assignee="{{item.assignee}}">{{item.assignee}}</a>{% endif %}</td>
+                    <td style="text-align:right;"><a data-snippet="{{item.file}}:{{item.line}}" class="snippet-expand">{{ rel_path(item.file) }}:{{item.line}}</a></td>
+                  </tr>
+                </table>
               </li>
+              <pre data-snippet="{{item.file}}:{{item.line}}" hidden><code>{{ file_snippet(item.file, item.line) | escape}}</code></pre>
             {% endfor %}
           </div>
           {% endfor %}
@@ -39,9 +65,14 @@
           <div class="list-group">
             {% for assignee, item_list in items_by_assignee %}
               <li data-assignee="{{assignee}}" class="assignee-select list-group-item">
+
+
                 <span class="badge pull-right">{{item_list.length}}</span>
                 {{assignee}}
+
+                <a href="http://www.github.com/{{assignee}}"><i class="fa fa-github-alt"></i> GitHub</a>
               </li>
+
             {% endfor %}
           </div>
 
@@ -69,13 +100,20 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
+    <!-- Highlight.js -->
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.0/highlight.min.js"></script>
+    <script>
+      hljs.initHighlightingOnLoad();
+    </script>
+
     <script>
     $(function() {
       function clear() {
-        $("li").removeClass("active")
+        $("li, a").removeClass("active")
       }
 
-      $(".assignee-select").click(function() {
+      $(".assignee-select").click(function(e) {
+        if(e.target != this) return true;
         if($(this).hasClass("active")) {
           clear()
         }
@@ -84,6 +122,7 @@
           var assignee = $(this).attr('data-assignee');
           $("[data-assignee='" + assignee + "']").addClass("active")
         }
+        return false;
       })
 
       $(".file-select").click(function() {
@@ -95,6 +134,12 @@
           var file = $(this).attr('data-file');
           $("[data-file='" + file + "']").addClass("active")
         }
+      })
+
+      $(".snippet-expand").click(function() {
+        var snippet = $(this).attr('data-snippet')
+        $("pre[data-snippet='" + snippet + "']").slideToggle();
+        return false;
       })
     })
     </script>

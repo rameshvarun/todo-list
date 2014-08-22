@@ -1,6 +1,6 @@
 {
     "name" : "todo-list",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description" : "Find TODOs, FIXMEs, and NOTEs in your project. Sort by assignee or file.",
     "author" : "Varun Ramesh <varunramesh@live.com>",
     "license": "MIT",

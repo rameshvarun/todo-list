@@ -1,7 +1,9 @@
 # Todo-List
 Todo-list starts a server to find TODOs, FIXMEs, and NOTEs,
 presenting them in an interface that lets you sort by assignee
-and file.
+and file. The server will also show code snippets.
+
+![Imgur](http://i.imgur.com/c2PahkF.png)
 
 # Using as an Application
 Todo-list can be installed and used as an application.
