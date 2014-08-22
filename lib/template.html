@@ -25,9 +25,9 @@
           <hr>
           <div class="list-group">
             {% for item in item_list %}
-              <li class="list-group-item">{{item.content}}
-                <!-- TODO: Put assignments in template {% if item.assignee %}<a>Assigned to {{item.assignee}}</a>{% endif %} -->
-                <!-- TODO: Show expandable file snippet <br>{{item.file}}:{{item.line}} -->
+              <li data-assignee="{{item.assignee}}" class="list-group-item">{{item.content}}
+                <!-- TODO(rameshvarun): Put assignments in template {% if item.assignee %}<a>Assigned to {{item.assignee}}</a>{% endif %} -->
+                <!-- TODO(rameshvarun): Show expandable file snippet <br>{{item.file}}:{{item.line}} -->
               </li>
             {% endfor %}
           </div>
@@ -38,20 +38,21 @@
           <hr>
           <div class="list-group">
             {% for assignee, item_list in items_by_assignee %}
-              <li class="list-group-item">
+              <li data-person="{{item.assignee}}" class="list-group-item">
                 <span class="badge pull-right">{{item_list.length}}</span>
                 {{assignee}}
               </li>
             {% endfor %}
           </div>
 
-          <!--<h1>Files</h1>
-          <div class="list-group">
+          <h1>Files</h1>
+          <hr>
+          <!--<div class="list-group">
             {% for file, item_list in items_by_file %}
               {% if item_list.length %}
                 <li class="list-group-item">
                   <span class="badge pull-right">{{item_list.length}}</span>
-                  {{file}}
+                  {{ rel_path(file) }}
                 </li>
               {% endif %}
             {% endfor %}
@@ -67,5 +68,11 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <script>
+    $(function() {
+
+    })
+    </script>
   </body>
 </html>

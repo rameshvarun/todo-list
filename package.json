@@ -8,13 +8,17 @@
       "gaze" : "0.6.4",
       "swig" : "",
       "fs-walk" : "",
-      "underscore" : ""
+      "underscore" : "",
+      "exec-queue" : ""
     },
-    "main": "index.js",
     "engines": {
       "node": ">= 0.8.0"
     },
     "bin" : {
       "todo-server" : "./bin/todo-server"
+    },
+    "main" : "lib/index",
+    "directories": {
+      "lib": "./lib"
     }
 }
