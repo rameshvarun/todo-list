@@ -38,7 +38,7 @@
           <hr>
           <div class="list-group">
             {% for assignee, item_list in items_by_assignee %}
-              <li data-assignee="{{item.assignee}}" class="list-group-item">
+              <li data-assignee="{{assignee}}" class="assignee-select list-group-item">
                 <span class="badge pull-right">{{item_list.length}}</span>
                 {{assignee}}
               </li>
@@ -50,7 +50,7 @@
           <div class="list-group">
             {% for file, item_list in items_by_file %}
               {% if item_list.length %}
-                <li data-file="{{ rel_path(file) }}" class="list-group-item">
+                <li data-file="{{ rel_path(file) }}" class="file-select list-group-item">
                   <span class="badge pull-right">{{item_list.length}}</span>
                   {{ rel_path(file) }}
                 </li>
@@ -71,7 +71,31 @@
 
     <script>
     $(function() {
+      function clear() {
+        $("li").removeClass("active")
+      }
 
+      $(".assignee-select").click(function() {
+        if($(this).hasClass("active")) {
+          clear()
+        }
+        else {
+          clear()
+          var assignee = $(this).attr('data-assignee');
+          $("[data-assignee='" + assignee + "']").addClass("active")
+        }
+      })
+
+      $(".file-select").click(function() {
+        if($(this).hasClass("active")) {
+          clear()
+        }
+        else {
+          clear()
+          var file = $(this).attr('data-file');
+          $("[data-file='" + file + "']").addClass("active")
+        }
+      })
     })
     </script>
   </body>
