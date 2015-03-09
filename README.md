@@ -11,7 +11,7 @@ Todo-list can be installed and used as an application.
 npm install -g todo-list
 ```
 
-Then navigate to you're code directory, and run the following command.
+Then navigate to your code directory, and run the following command.
 
 ```
 todo-list
