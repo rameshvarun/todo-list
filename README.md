@@ -1,4 +1,5 @@
-# Todo-List
+# Todo-List [![Build Status](https://travis-ci.org/rameshvarun/todo-list.svg)](https://travis-ci.org/rameshvarun/todo-list)
+
 Todo-list starts a server to find TODOs, FIXMEs, and NOTEs,
 presenting them in an interface that lets you sort by assignee
 and file. The server will also show code snippets.

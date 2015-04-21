@@ -1,34 +1,40 @@
 {
-    "name" : "todo-list",
-    "version": "0.0.2",
-    "description" : "Find TODOs, FIXMEs, and NOTEs in your project. Sort by assignee or file.",
-    "author" : "Varun Ramesh <varunramesh@live.com>",
-    "license": "MIT",
-    "keywords" : [
-      "todo",
-      "fixme",
-      "note"
-    ],
-    "repository": {
-      "type": "git",
-      "url": "git://github.com/rameshvarun/todo-list.git"
-    },
-    "dependencies" : {
-      "gaze" : "0.6.4",
-      "swig" : "~1",
-      "fs-walk" : "0.0.1",
-      "underscore" : "~1",
-      "exec-queue" : "0.0.2"
-    },
-    "preferGlobal": true,
-    "engines": {
-      "node": ">= 0.8.0"
-    },
-    "bin" : {
-      "todo-list" : "./bin/todo-list"
-    },
-    "main" : "lib/index.js",
-    "directories": {
-      "lib": "./lib"
-    }
+  "name": "todo-list",
+  "version": "0.0.2",
+  "description": "Find TODOs, FIXMEs, and NOTEs in your project. Sort by assignee or file.",
+  "author": "Varun Ramesh <varunramesh@live.com>",
+  "license": "MIT",
+  "scripts" : {
+      "test": "mocha"
+  },
+  "keywords": [
+    "todo",
+    "fixme",
+    "note"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rameshvarun/todo-list.git"
+  },
+  "dependencies": {
+    "gaze": "0.6.4",
+    "swig": "~1",
+    "fs-walk": "0.0.1",
+    "underscore": "~1",
+    "exec-queue": "0.0.2"
+  },
+  "preferGlobal": true,
+  "engines": {
+    "node": ">= 0.8.0"
+  },
+  "bin": {
+    "todo-list": "./bin/todo-list"
+  },
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "./lib"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.4"
+  }
 }
