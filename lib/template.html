@@ -39,8 +39,8 @@
           <hr>
           <div class="list-group">
             {% for item in item_list %}
-              <li data-snippet="{{item.file}}:{{item.line}}"
-              data-file="{{ rel_path(item.file) }}"
+              <li data-snippet="{{ slug(item.file) }}:{{item.line}}"
+              data-file="{{ slug(item.file) }}"
               data-assignee="{{item.assignee}}"
               class="list-group-item snippet-expand">
                 <table style="width:100%;">
@@ -50,11 +50,11 @@
 
                   <tr>
                     <td>{% if item.assignee %}Assigned to <a class="assignee-select" data-assignee="{{item.assignee}}">{{item.assignee}}</a>{% endif %}</td>
-                    <td style="text-align:right;"><a data-snippet="{{item.file}}:{{item.line}}" class="snippet-expand">{{ rel_path(item.file) }}:{{item.line}}</a></td>
+                    <td style="text-align:right;"><a data-snippet="{{ slug(item.file) }}:{{item.line}}" class="snippet-expand">{{ rel_path(item.file) }}:{{item.line}}</a></td>
                   </tr>
                 </table>
               </li>
-              <pre data-snippet="{{item.file}}:{{item.line}}" hidden><code>{{ file_snippet(item.file, item.line) | escape}}</code></pre>
+              <pre data-snippet="{{ slug(item.file) }}:{{item.line}}" hidden><code>{{ file_snippet(item.file, item.line) | escape}}</code></pre>
             {% endfor %}
           </div>
           {% endfor %}
@@ -81,7 +81,7 @@
           <div class="list-group">
             {% for file, item_list in items_by_file %}
               {% if item_list.length %}
-                <li data-file="{{ rel_path(file) }}" class="file-select list-group-item">
+                <li data-file="{{ slug(rel_path(file)) }}" class="file-select list-group-item">
                   <span class="badge pull-right">{{item_list.length}}</span>
                   {{ rel_path(file) }}
                 </li>
@@ -110,6 +110,7 @@
     $(function() {
       function clear() {
         $("li, a").removeClass("active")
+        console.log("Cleared active selects.");
       }
 
       $(".assignee-select").click(function(e) {
@@ -120,6 +121,7 @@
         else {
           clear()
           var assignee = $(this).attr('data-assignee');
+          console.log("Selecting items assigned to " + assignee + "...")
           $("[data-assignee='" + assignee + "']").addClass("active")
         }
         return false;
@@ -132,6 +134,8 @@
         else {
           clear()
           var file = $(this).attr('data-file');
+          console.log("Selecting items in file " + file + "...")
+          console.log("[data-file='" + file + "']")
           $("[data-file='" + file + "']").addClass("active")
         }
       })

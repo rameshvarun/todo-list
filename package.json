@@ -1,11 +1,11 @@
 {
   "name": "todo-list",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Find TODOs, FIXMEs, and NOTEs in your project. Sort by assignee or file.",
   "author": "Varun Ramesh <varunramesh@live.com>",
   "license": "MIT",
-  "scripts" : {
-      "test": "mocha"
+  "scripts": {
+    "test": "mocha"
   },
   "keywords": [
     "todo",
@@ -17,11 +17,12 @@
     "url": "git://github.com/rameshvarun/todo-list.git"
   },
   "dependencies": {
-    "gaze": "0.6.4",
-    "swig": "~1",
+    "exec-queue": "0.0.2",
     "fs-walk": "0.0.1",
-    "underscore": "~1",
-    "exec-queue": "0.0.2"
+    "gaze": "0.5.1",
+    "slug": "^0.9.1",
+    "swig": "~1",
+    "underscore": "~1"
   },
   "preferGlobal": true,
   "engines": {
