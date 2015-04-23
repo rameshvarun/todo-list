@@ -22,4 +22,13 @@ You should be able to navigate your browser to `http://localhost:3000/` and see 
 results.
 
 # Using as a Library
-Todo-list can not be used as a library yet.
+```javascript
+var todolist = require("todo-list");
+todolist.findMarks("// TODO(bob): This is a TODO assigned to bob.");
+/*[{
+	content: 'TODO(bob): This is a TODO assigned to bob.',
+	line: 0,
+	assignee: 'bob',
+	type: 'TODOs'
+}]*/
+```

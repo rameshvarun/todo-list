@@ -26,13 +26,13 @@ describe('findMarks', function() {
   });
 
   it('should parse the assignee of a task.', function() {
-    var result = todolist.findMarks("// TODO(assignee): This is a TODO assigned to bob.");
+    var result = todolist.findMarks("// TODO(bob): This is a TODO assigned to bob.");
     console.log(result);
     assert.deepEqual(result,
       [{
-        content: 'TODO(assignee): This is a TODO assigned to bob.',
+        content: 'TODO(bob): This is a TODO assigned to bob.',
         line: 0,
-        assignee: 'assignee',
+        assignee: 'bob',
         type: 'TODOs'
       }]);
   });
