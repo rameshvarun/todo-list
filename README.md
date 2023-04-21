@@ -1,4 +1,5 @@
-# Todo-List [![Build Status](https://travis-ci.org/rameshvarun/todo-list.svg)](https://travis-ci.org/rameshvarun/todo-list)
+# Todo-List
+[![Node.js CI](https://github.com/rameshvarun/todo-list/actions/workflows/node.js.yml/badge.svg)](https://github.com/rameshvarun/todo-list/actions/workflows/node.js.yml)
 
 Todo-list starts a server to find TODOs, FIXMEs, and NOTEs,
 presenting them in an interface that lets you sort by assignee
